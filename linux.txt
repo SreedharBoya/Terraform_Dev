@@ -1,0 +1,28 @@
+wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
+
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+
+plugins:
+extended email plugin
+parameterized-git paramater
+build pipeline
+catlight(notifier)
+maven-intigration
+green ball
+conditional 
+role based authorization strategy
+nexus artifact 
+
+
+
+artifacts server--nexus and jfrog
+
+nexus--8081--its a server
+if we use same servers for nexus and jenkins,we need to concentrate on disk space.
+
+vim tomcat-user.xml
+
+
+snapshot--incremental deveopment of particular application
+
