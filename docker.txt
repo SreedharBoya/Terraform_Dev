@@ -1,0 +1,318 @@
+
+
+
+
+
+
+FROM python:2.7-slim
+
+WORKDIR /app
+
+copy . /app
+
+RUN pip install --trusted-host pypi.python.org -r requiremts.txt
+
+
+EXPOSE 80
+
+ENV NAME work
+
+CMD ["python","app.py"]
+
+
+2.craete requiremts.txt file in the same dir
+
+Flask
+Redis
+
+3.app.py
+
+from flask import FLASK
+from resid import Redis,redisError
+import os
+import socket
+
+#connect to redis
+redis =Redis(host="redis" , db=0 , socket_connect_timeout=2 , socket_timeout=2)
+
+app =Flask(__name__)
+
+
+docker built -t pythonapp .(for building an image)
+
+proxy server 
+ENV http_proxy host:port
+ENV https_proxy host:port
+
+DNS (etc/docker/daemon.json)
+
+{
+  "dns" = ["your_dns_adress","8.8.8.8"]
+}
+
+sudo service docker restart
+
+docker run -p 4000:80 pythonapp 
+
+curl ttp://localhost:4000
+
+docker run -d -p 4000:80 pythonapp
+
+docker container ls
+ docker container stop cid
+
+docker login
+
+docker tag  pythonapp  username/repo:tag
+
+docker images ls
+
+docker push username/repo:part2
+
+docker run  -p 4000:80 username/repo:part2
+
+docker-compose.yml
+
+version: "3"
+
+services:
+web:
+image: username/repo:tag
+deploy:
+replicas: 5
+resources:
+limits:
+cpus: "0.1"
+memory: 50MB
+restart_policy:
+condition: on-failure
+ports:
+ -4000:80
+networks:
+ - webnet
+networks:
+  webnet:
+
+docker swarm init
+ docker stack deploy -c docker-compse.yml getstartedapp
+
+docker services ps getstartedapp_web
+
+docker container ls -q
+
+docker stack deploy -c docker-compose.yml getstartedapp
+
+docker stack rm getstartedapp
+
+docker swarm leave --force
+You can run curl -4 http://localhost:4000 several times in a row, or go to that URL in your browser and hit refresh a few times.
+
+
+
+
+---------------------
+
+
+docker-machine create --drive virtualbox mym1
+docker-machine create --drive virtualbox mym2
+
+
+docker-machine ls
+
+docker-machine ssh mym1 "docker swarm init --advertise-addr  <mym1 ip>"
+docker-machine ssh mym2 "docker sarm join-token manager"
+
+docker-machine --antive-ssh ssh mym1 ...
+docker-machine ssh mym2 "docker swarm join \
+--token <token> \
+mym2 ip:port(2377)"
+
+docker-machine ssh mym1 "docker node ls"
+If you want to start over, you can run docker swarm leave from each node.(to leave)
+
+
+version: "3"
+services:
+web:
+image:username/repo:tag
+deploy:
+replicas:5
+resources:
+limits:
+cpus: "0.1"
+memory: 50MB
+restart_policy:
+condition: on-failure
+
+ports:
+- "80:80"
+
+Networks:
+ - wenet
+
+Visulizer:
+image:dockersamples/visualizer:stable
+ports:
+- "8080:8080"
+ volumes:
+- ""/var/run/docker.sock:/var/run/docker.sock"
+deploy:
+placement:
+ constraints: [node.role == manager]
+networks:
+- webnet
+
+redis:
+image:redis
+
+ports:
+- "6379:6379"
+volumes:
+- ""/home/docker/data:/data"
+deploy:
+placements:
+constarints: [node.role == manager]
+  command: redis-server --appendonly yes
+networks:
+- webnet
+networks:
+ webnet:
+
+
+docker-compose.yml
+
+wordpress:
+ image: wordpress
+ links:
+  - wordpress_db:mysql
+
+ ports:
+ -8080:80
+
+wordpress_db:
+ image:mariadb
+ environment:
+ MYSQL_ROOT_PASSWORD:sridhar
+
+phpadmin:
+  image:corbinu/docker-phpadmin
+  links:
+  - wordpress_db:mysql
+
+  ports:
+   - 8181:80
+ environment:
+  MYSQL_USERNAMR:root
+  MYSQL_ROOT_PASSWORD:sridhar
+
+Dockerfile:
+1.FROM:it defines the base image to start the build process.
+2.RUN:it takes the command as its argument and runs it to from the image unlike it actually is used to build the image.
+3.CMD:this is similar to RUN,can be used for excuting a specific command howerever unlike RUN it is not excuted during buld but when a container is inatited using the image being built.
+4.ENTRYPOINT:argument sets the concrete default application that is used everytime a container is created using the image.
+ex:
+CMD "hello"
+ENTRYPOINT echo
+5.ADD:this comand gets 2 arguments a source and a destination.it basically copies the files the source on the host into the container's own filesystem at the set destination.
+ADD /myapp_folder /myapp_folder
+6.env:
+7:WORKDIR:
+8:EXPOSE:is used to associate a specified port to enable networking between the running process inside the container and  outside the world(i.e the host)
+
+9.MAINTER:
+10.USER:is used to set the UID which is to run the container based on the image being built.
+ex: USER 751
+11:VOLUME:
+
+FROM ubuntu:12.04
+
+MANITER RAJ
+
+RUN apt-get update && apt-get install -y apache2 && apt-get clean && rm -rf "var/lib/arg/lists/*"
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+
+EXPOSE 80
+
+CMD ['user/lib/apache' '-D' 'FOREGROUND']
+
+__>docker build -t myimage .
+docker run -p 80:80 --name= myime1 my image
+
+---------------create docker using ansible:
+install docker-py module on docker host(we need ansible controller)
+rpm -qa | grep -i docker-py
+1.pull a centos image.(pull_image.yml)
+- name: pull centos image
+  hosts: dockerhost
+  tasks:
+  - name: pull
+    docker_image:
+    name: centos
+
+Run: ansible-playbook pull_image.yml
+
+2.create a customet image(custom_image.yml)
+- name: custom centos image
+  hosts: dockerhost
+  tasks:
+  - name: build image
+    docker_image:
+    path: root/docker
+    name: webimage
+
+then run playbook
+then login into your docker host
+(we have 3 files(dockerfile and index.htm,run.sh)
+
+craete a docker file.
+FROM centos
+MAINTAINER SREE
+RUN yum install -y httpd
+RUN yum clean all
+COPY index.html /var/www/html/index.html
+COPY run.sh  run.sh
+CMD ./run.sh
+
+--run.sh
+exec /usr/bin/apachectl -D FOREGROUND
+
+3.create a container
+- name: custom centos image
+  hosts: dockerhost
+  tasks:
+  - name: web container
+    docker_container:
+      name: web
+      image: webimage
+      state: started
+      ports:
+       - "8080:80"
+      tty: true
+      detach: true
+
+then run it
+then go to docker host and check (docker ps)
+go to browser and verify it.
+
+
+4.validate deployment
+validator_deploy.yml
+- name: validator
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: validate docker container
+    uri:
+     url: http://dockerhost:8080
+   register: this
+   failed_when: "'hey there' not in this.content"
+
+then run the playbook
+then i can commit to GIThub for performing CICD i am using jenkins pipeline.if you run again we need clear all the docker container and images which is docker host
+ 
+
+
+
+

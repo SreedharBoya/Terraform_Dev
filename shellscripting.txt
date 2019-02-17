@@ -1,0 +1,257 @@
+#cleaning Logs automatically.
+
+
+#!/bin/bash
+
+LOG_DIR=/var/log
+LINES=25
+ROOT_UID=0
+E_XCD=66
+E_NOROOT=67
+
+if  [ "$UID" -ne "$ROOT_UID" ]
+then
+echo "u must be root user"
+exit $E_NOROOT
+fi
+
+CD $LOG_DIR
+if [ 'pwd' != "$LOG_DIR" ] # not in var/log?
+then
+echo "can not change $LOG_DIR"
+exit $E_XCD
+fi
+
+tail -$LINES messges > msg.tmp 
+mv msg.tmp  messges
+cat /dev/null >wtmp
+echo "all logs cleaned up"
+exit 0
+
+cat /var/log/messages | wc
+
+#check disc space automatically
+
+#!/bin/bash
+while [ i=1 ]
+do
+date
+df -h /boot | awk '{print $5 " " $6}'
+df -h /home | sed -n '2p' | aws '{print $5 " " $6}'
+sleep 2s
+echo
+done
+
+---------------
+count no of lines and words in a file
+
+ech "enter filename:\c"
+read fname
+
+exec $fname
+nol=0
+now=0
+
+while read lines
+do 
+    nol= 'expr $nol + 1'
+	set $lines
+	now= 'expr $now + $#'
+done
+echo "No lines:$nol"	
+echo "No words:$now"	
+
+
+-------fetch and redirct man pages of commands using for loop
+for cmd in 'cat commandlist'
+do 
+   man $cmd >> helfile
+   done
+   -----------------
+ netsed loop
+ 
+ a=1
+ while [ $a -le 3 ]
+ do
+    b=1
+	while [ $b -le 3 ]
+	do
+	c=1
+	while [ $c -le 3 ]
+	do
+	  echo $a$b$c
+	  c='expr $c + 1'
+	  done
+	  b='expr $cb + 1'
+	  done
+	  a='expr $a + 1'
+	  done
+	  -------------
+	  count=1
+	  while [ $count -le 10 ]
+	  do
+	     if [ $count -eq 6 ]
+		 then 
+		   break
+		   fi
+	    echo $count
+		count='expr $count + 1'
+		done
+		we are out of loop
+		
+		--------------------------
+		count=0
+	  while [ $count -le 9 ]
+	  do
+	     if [ $count -eq 5 ]
+		 then 
+		   continue
+		   fi
+		   count='expr $count + 1'
+	    echo $count
+		
+		done
+		echo "we are out of loop"
+		-----------------------
+	grep -i -n -c money text.txt >> pattern && echo "the task was complted"
+	---------
+	adding and removing users:who
+	------------
+	echo "eneter user name:\c"
+	read logname
+	
+	grep "$logname" /etc/passwd > /dev/null
+	if [ $? -eq 0 ]
+	then 
+	echo "wait...."
+	else
+	echo "user not found"
+	exit
+	fi
+	time=0
+	
+	while true
+	do
+ who | grep "$logname" > /dev/null
+ if [ $? -eq 0 ]
+ then 
+ echo " $logname has been logged in"
+ if [ $time -ne 0 ]
+ then
+ if [ $time -gt 60 ]
+ then 
+    min='expr $time / 60'
+	sec='expr $time % 60'
+ echo "$logname was $min minutes $sec seconds  late logging in"
+ else
+ sec=$time
+ echo "$logname was $sec seconds late in logging in"
+ fi
+ fi
+ exit
+ else
+  time='expr $time + 1'
+  sleep 60
+  fi
+done 
+-----------------
+write user, mesg y
+finger(who are logging in and times )
+
+---------------
+mail -s mail-one sbr@localhost
+mail--to check
+--------
+STDIN---<
+STDOUt---1>
+STDERR---2> and &>(both)
+---------------
+/dev/null(trash and u cant retrieve)
+---------
+EXIT status---check previous cmds
+0-255(0-sucuss and 1-255-unsucess)
+how do we check exit status
+?--variable and we can use $?
+echo $?
+1--input error
+2--command error
+126--permisson denied
+127--comd not found
+128+n kill signals
+kill -l(total 64)
+-----------
+pipe:stdout-stdin
+---
+wall "hello"(sending communciationor message)
+--------
+cat /var/log/messages | wc -l
+----
+filter cmds
+head
+tail
+cat -n /var/log/messages | head (first 10)
+cat -n /var/log/messages
+--------
+
+
+1-125(not morethan use those are system variables)
+---------
+cp /var/log/messages /tmp
+cd /tmp
+cat -n messages |wc -l
+cat -n messages | head -n 20 |tail -11 (out 10-20 lines)
+-----------------------
+grep:
+grep word filename
+grep -e root -e adm passwd --color=auto
+grep -E 'root|adm'
+grep -f serach.grep passwd
+grep root /etc/passwd /etc/group
+grep root /etc/passwd -c
+grep -i root /etc/passwd
+grep root /etc/passwd -w -i
+grep root /etc/passwd -x -i
+----------
+cat file | sort -n -r
+cat file | sort -n | uniq 
+cat file | sort -n | uniq -d
+--------
+cat passwd | grep -v '^$'(will print without empty lines)
+^(first) and $(last)
+--------------
+based columns filter--cut cmd
+echo -e 'a\tb\tc\n1\t2\t3 |cut -f1-3
+cat passwd | cut -f1 -d :
+ech helloworld |cut -c 1-5
+-----------
+xargs--conert clms to rows and rows to colms
+echo -e "1\n2\n3" |xargs -n2
+free -m | grep mem|xargs |cut -d ' ' -f 4
+--------------
+awk cmd is data manipulation cmd which is used based on filter out on row and cloum based
+free -m | grep mem |awk '{print $4}'
+grep root passwd----awk '/root/ {print}'
+awk -F : '/root/ {print $1}' passwd
+----------------
+sed -f sed.file filename
+sed -n '2 p' employee.txt
+sed '1,4 p' employee.txt
+sed -e '/^$ d' employee.txt(dlete on output not changed)
+sed -i '/^$ d' employee.txt(it doest print but it will change the file)
+sed '/s/manage/direcror/' employee.txt
+sed '1,$ p' employee.txt(2 to end of the file)
+sed '1~2 p' employee.txt(2 to end of the file)
+sed '/message/ d' employee.txt
+p-print
+a-append
+s-substite
+i-insert
+d-delete
+c-cahnge
+-e --search
+echo apple ant | sed -e '/s/a/A/g'
+echo apple ant | sed -e '/s/a/A/1'
+echo apple ant | sed -e '/s/a/A/2'
+   
+   
+   

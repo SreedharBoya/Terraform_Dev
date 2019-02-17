@@ -1,0 +1,549 @@
+yml ---sensitive(1.3)
+key value
+x=2
+name=boya
+Data collections:
+key:value
+my value:12
+my name:"Yml"
+-->sequence data collections:(it is like array or list)
+team_members:
+- srid
+- dhoni
+
+team_members:
+- srid
+- dhoni:35
+
+-->Map data collections: it is equlanat to dictionaries.
+map representaion:
+team_members:
+ srid:29
+ dhoni:36
+ 
+ team_members:
+ srid:26
+ dhoni:
+ - age:36
+ - captain
+ raghu:40
+ 
+ -->order and unorder collections:
+ sequence are order collections.
+ maps are unorder collections.
+ 
+ 
+ __>what is playbook in ansible?
+ ansible playbook is a yml script.
+ ansible playbook is used to send commands to remote servers in a script way instead of using ansible commands individually to configure remote servers from command line.
+ -Task:
+  -play:
+  -playbook:
+  
+ -->vi test.yml
+ 
+ ---
+ - hosts: app_server
+   tasks:
+   - copy: src=/home/anadmin/demo.txt dest=/tmp/
+   - command: mkdir /tmp/dir_hello
+	 
+ - hosts: all
+   tasks:
+   - copy: src=/home/anadmin/new.txt dest=/tmp/
+   - command: touch /tmp/hello
+   
+ 
+ -->vi service.yml
+ ---
+ 
+ - hosts: app_server
+ 
+   tasks:
+   - yum: name=httpd state=present
+   - service: name=httpd state:started
+   
+   
+ -->variables in ansible:
+ variables are represented with vars key.
+ variables are always either sensitive(list) or maps(dictionaries)
+ 
+ ---
+ - hosts: app_server
+   vars:
+   my_content: "hello india"
+   tasks:
+   - copy:
+      dest: /tmp/newfile_txt
+	  content: "{{ my_content }}"
+	  
+-->how to read a variable value from command line?
+with help of vars_promt selection
+# this script is to read a variable value from command line
+---
+- hosts: app_server
+  vars_promt:
+  name: value1
+  prompt: Enter any value?
+  
+---
+- name: this is print a value on command line
+  hosts: app_server
+  vars_promt:
+  name: value1
+  prompt: Enter any value?
+  
+  tasks:
+  - name:  this is print a value on command line
+    debug:
+     msg: "Enter value is: {{ value1 }}"
+	 
+	 
+-->palybook with iteration(loop).
+if we want to do same task again and again then we can go for loop.
+palybook supports iteration with with_items section then ansible by default will create a variable called item.
+---
+ - hosts: localhost
+   become: true
+   tasks:
+   - name: this will create my directories1
+     command: mkdir /tmp/mydir1
+   - name: this will create my directories2
+     command: mkdir /tmp/mydir2
+   - name: this will create my directories3
+     command: mkdir /tmp/mydir3
+	
+	
+---
+ - hosts: localhost
+   become: true
+   tasks:
+   - name: this will create my new directories
+     command: mkdir /tmp/"{{ item }}"
+	 with_items:
+	 - new_dir1
+	 - new_dir2
+	 - new_dir3
+	 
+-->how to pass variables from command line to a palybook?
+ansible-palybook urscript -e "var1=hello var2=what"	 
+-->how to access command line variables in a playbook?
+we can access like normal variable in a script.
+
+---
+ - hosts: localhost
+   tasks:
+   - debug:
+      msg: "the value of var1={{var1}} and var2={{var2}}"
+	  
+-->conditional statements:
+--- 
+ - name: this will work bases on when expression
+   hosts: localhost
+   tasks:
+    - name: this will create info
+	  copy:
+	   dest: /tm/file.txt
+	   content: "this file is created based on when expression"
+	   when: true
+	   
+-->what is register and delegate_to module in playbook.
+
+---
+ - name: this is for register
+   hosts: app_server
+   tasks:
+   - command: touch /tmp/file1.txt
+     register: register_output
+   - debug:
+      msg: "this is output:{{ register_output }}"
+	  
+---
+ - hosts: all
+   tasks:
+   - command: touch /tmp/file1
+     delegate_to: localhost
+	 
+	 
+	 
+-->launching Ec2 instance using ansible:
+
+first--install ansible-2.5.5(as linux,we have python was installed by default)or 2.6.0
+install python-pip
+pip install boto
+then create a file .boto on your local machine and mention like below we need to go aws and create user with ec2fullaccess policy and download access key and secret key.
+[credentials]
+aws_access_key_id=
+aws_secret_access_key=
+then we nee to create ec2launch.yml file
+---------------
+---
+ - name: ec2 instnces
+   hosts: localhost
+   connection: local
+   become: yes
+   tasks:
+    - name: launching instance in us-west-2
+	  ec2:
+	   instance_type: t2.micro
+	   ami: ami-12dfn31
+	   region: us-west-2
+	   key_name:  webserver
+	   group: default
+	   count: 1
+	   vpc_subnet_id: id_qdasj12
+	   wait: yes
+	   assign_public_ip: yes
+	   instance_tags:
+	     key: value
+	   
+ then excute your playbook and check in your region.
+ 
+ ---ec2 was created by ansible and ansible is running on ec2 bastionhost:
+ now take the pulic ip of ur current instance and go to security goups,change the inbound and add SSH TCP/IP protocal.
+ then go IAM role,create new IAM role with ec2fullaccess policy now go to running ec2 and change instance settings and add IAM role to it.
+ then launch ec2 instance and access with SSH.
+now install python-pip
+pip install ansible
+pip install boto
+
+now create ansible.yml to launch ec2 instance
+---
+ - name: ec2 launch 
+   hosts: localhost
+   tasks:
+    - name: ec2 instance on bastiohost
+	  ec2:
+	   instance_type: t2.micro
+	   region: us-west-2
+	   ami: ami-12dfn32
+	   key_name: webserver
+	   group: default
+	   vpc_subnet_id: default
+	   count: 1
+	   wait: yes
+	   assign_public_ip: no
+	   instance_tags:
+	     key: value
+ 
+_>Autoscaling and Rolling updated using ansible:
+launchcf.yml
+launchconfig:
+---
+ - hosts: localhost
+   connection: local
+   tasks:
+    - name : ec2 instance launch configuration
+       ec2_lc:
+	    name: "{{ launch_config }}"
+        instance_type: t2.micro
+        image_id: ami-sab1e4
+        keyname: webserver
+		security_group: [ 'default' ]
+		region: us-west-2
+		user_data_path: /root/user_data
+	------------------------------	
+we have user_data under root:
+#!/bin/bash
+yum install httpd
+systemctl start httpd.service
+systemctl enable httpd.service
+echo"hello world" > /var/www/html/index.html
+
+-----------------------
+now create elb playbook(elb.yml)
+---
+ - hosts: localhost
+   connection: local
+   tasks:
+    - name: elb creating
+	  ec2_elb_lb:
+	  name: awsloadbalancing
+	  state: present
+	  region: us-west-2
+	  cross_az_loadbalancing:  yes
+	  listeners:
+	    - protocal: http
+		  load_balance_port: 80
+		  instance_port: 80
+	  tags:
+	   name: web_load
+	  security_group_ids: sg-idh13
+	  zones: us-west-2b
+	  health_checks:
+	    ping_protocal: http
+	    ping_port: 80
+	    ping_path: "/index.html"
+	    response_timeout: 5
+	    intercal: 30
+	    unhealthy_threeshold: 2
+	    healthy_threeshold: 2
+		
+----------------
+now we create Autoscaling(asg.yml)
+- name: creating autoscaling
+  hosts: localhost
+  tasks:
+   - name : create autoscaling
+     ec2_asg:
+	 name: aws_elb
+	 region: us-west-2
+	 load_balancers: awsloadbalancing
+	 launch_config_name: "{{ launch_config }}"
+	 availability_zones: [ 'us-west-2b' ]
+	 min_size: 1
+	 max_size: 1
+	 desired_capacity: 1
+	 replace_all_instances: yes
+	 vpc_zone_identifier: [ 'subnet_id' ]
+	 tags:
+	  - type: aws_ec2_asg
+	 wait_for_instances: yes
+	 
+---we have one more play which is used to vaidate the url and its content and gather elb dns.
+(validator.yml)
+- name: validator
+  hosts: localhost
+  collections: local
+  tasks:
+  - name: gather facts
+    ec2_elb_facts:
+	region: us-west-2
+	names: awsloadbalancing
+	register: elb_facts
+	
+	debug:
+	 - msg: "{{ elb_facts.elbs.0.dns_name }}"
+	uri:
+	 - url: http://{{ elb_facts.elbs.0.dns_name }}
+	 - return_content: yes
+	register: this
+	failed_when: "'hello world' not in this.content"
+	
+	then we have to upload all 4 palybooks into github and 
+	
+	
+-->how to launch Docker Containers using ansible.
+for thiss we need to have 2 servers
+1.ansible controll node 
+2.docker host.
+we should have python-pip on docker host so ansible could work with docker host.
+pull centos image
+create custom image
+create a container
+vaidate deployment
+1.pull.yml
+
+- name: Pull centos image
+  hosts: dockerhost
+  tasks:
+   - name: pull
+     docker_image:
+	   name: centos
+	   
+then run the playbook
+2.create customet.yml
+
+- name: create custom image
+  hosts: dockerhost
+  connection: local
+  tasks:
+   - name: build image
+     docker_image:
+       path: /root/docker
+       name: webimage
+
+-----------
+create a Dockerfile
+
+FROM Centos
+MAINTER srid
+RUN yum install -y httpd
+RUN yum clean all
+COPY index.html /var/www/html/index.html
+COPY run.sh run.sh
+CMD /.run.sh
+
+----we have index.html
+hello India
+---we have a script run.sh
+exec /user/sbin/apachectll -D FOREGROUND
+
+then we have to create Image and run the playbook(customet.yml)
+
+3.create another playbook which is for create container.
+- name : container
+  hosts: dockerhost
+  tasks:
+   - name: web_container
+     docker_container:
+	   name: web
+	   image: webimage
+	   state: started
+	   ports:
+	    - "8080:80"
+	   tty: true
+	   detach: true
+then run it.
+4.create valide playbook
+
+- name: validate
+  hosts: localhost
+  connection: local
+  tasks:
+   - name: validate docker container
+     uri:
+	   url: http://dockerhost:8080
+	   return_content: yes
+     register: this
+     failed_when: "'hello India' not in this.content"	 
+then run it then upload into github and make CI/CD pipline to excute them before we need to clear all the iamges and container on dockerhost.
+
+
+---
+ - name: configure and management NFS
+   hosts: all
+   become_user: root
+   vars:
+    nfs_mountpoint:'/nfsmount'
+	nfs_server: '195.16.5.1'
+	nfs_export: '/nfsshare'
+   tasks:
+   
+   # installed packages on client/servers
+   
+    - name: install packages
+	  yum: 
+	   name: {{ item }}
+	   state: present
+	  with_items:
+	    - nfs-utils
+		
+	  tags: nfs_client,nfs_server
+	  
+	# NFS server configuration ##
+	# make sure mountpoint is created  on the client machine
+	- name: copy /etc/exports
+	  template:
+	   src: template/exports.J2
+	   dest: /etc/exports
+	   owner: root
+	   group: root
+	   mode: 755
+	 tags: nfs_server,copy_export
+	 
+	 # NFS service start
+	 - name: NFS service start
+	   service:
+	     name: {{ nfs_mountpoint }}
+		 state: restared
+		 enabled: yes
+	   tags: nfs_server
+	   
+	  # NFS Client configuration
+	  # make sure mountpoint is created  on the client machine
+	  - name: create a mountpoint for nfs
+	    file:
+		 path: {{ nfs_mountpoint }}
+		 state: directory
+		 owner: root
+		 mode: 755
+	   tags: nfs_client
+	   
+	  # fstab get updated and filesystem mounted
+	   - name: update fsab and mount nfs share
+	     mount:
+		  name: {{ nfs_mountpoint }}
+		  src: {{ nfs_server }}:/{{ nfs_export }}
+		  fstype: nfs
+		  opts: default,rw,bg
+		  dump: 0
+		  passno: 2
+		tags: nfs_clinet
+		 
+--ansible -m shell -a 'df -h' nfs_clinets(groupname) then exportfs -v
+then run the playbook
+ansible-palybook anisblenfs.yml -t nfs_server -l nfs_server
+now check cat /etc/exports
+--- exports -v
+then run the playbook
+ansible-palybook anisblenfs.yml -t nfs_client -l nfs_clinet
+
+-------------------
+user management by using ansible for daily task.
+---create users and goups,generate ssh keys,delete groups and users.
+
+---
+ - name: user management
+   hosts: all 
+   tasks:
+    - name: create a group
+	  group:
+	   name: {{ item }}
+	   state: present
+	  with_items:
+	    - demogroup1
+		- demogroup2
+        - demogroup3
+	 tags: add group
+	 
+	- name: create users
+	  user:
+	   name: {{ item }}
+	   state: present
+	   group: demogroup1
+	   password:"ljgdafu2"
+	   shell: /bin/bash
+	  with_items:
+	     - user1
+		 - user2
+		 - user3
+	 tags: add new user
+	 
+	- name: generate ssh keys
+	  user:
+	   name: {{ item }}
+	   generate_key_ssh: yes
+	   ssh_key_bits: 4096
+	   ssh_key_file: /.ssh/rsa_id
+	  with_items:
+	    - user1
+	  tags: generate_key_ssh
+	  
+	- name: update authorized keys for user
+	  authorized_key:
+	    user: user1
+		state: presnt
+		key: "{{ lookup{'file',/home/user1/.ssh/id_rsa.pub} }}"
+		
+	 tags: copy_pub_key
+	  
+	  - name: delete a group
+	  group:
+	   name: {{ item }}
+	   state: absent
+	  with_items:
+		- demogroup2
+        - demogroup3
+	 tags: remove_group
+	 
+	  - name: delete users
+	  user:
+	   name: {{ item }}
+	   state: absent
+	  with_items:
+		 - user2
+		 - user3
+	 tags: remove_users
+
+   
+
+	  
+	
+	   
+        		
+ 
+ 
+ 
+ 
+

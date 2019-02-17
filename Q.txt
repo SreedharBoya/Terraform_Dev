@@ -1,0 +1,861 @@
+0.what are main benefits of Devops?
+--release velocity(we can release code to prod more often and with more confidence)
+--Developemt cycle(the complte SDLC from intial design to prod deployment become shorter)
+--deployment rollback(we plan for any failure in deployment rollbck due to a bug in code or issue in prod.
+this gives confidence in releasing feature without worring about downtime for rollback.
+--defect detection(we can catch defects much earlier than releasing to prod.it improves the quality of the software.
+--recovery from failure
+--collabaration.
+--performance oriented.
+1.What is docker and how to docker install and how to deploy application? what are the options using in docker?
+2.how to configure docker to host the other server to use docker?
+3.You have one server setups which has 10 servers, how to know the developer that the servers are active and ready to use?
+4.what is auto scaling and how to configure the launch configuaration and auto scaling group ?
+5.what is jenkins and how to use jenkins? how to merge the repos in jenkins?
+6.what is spot instances? and diff b/w spot instances and normal instances?
+7.what is diff b/w AMI and docker image?
+8.how to extend disk size in aws?
+9.How to create AMI of running instances?
+10.how the 3rd person can access single file in s3 bucket?
+11. file permissions
+12.LVM
+13. what should be the permission for pem file?--400
+14.how to recover loss of instance in aws?
+15.expain about parent pom.xml and child pom.xml?then how it works?
+16.how to restart jenkins?
+17.maven life cycle?
+18.instance 100gb but back up pupose assigned 10gb data then it is grwoing rapidly max size 9+ gb as devops engineer what have to check and how to fix the issue?
+19.bare repository?
+A: A repo is created with git init -bare cmd is a bare repo in git.
+bare repo does not contain any working or checked out copy of source files.a bare repo stores git revision history in the root folder of repo instead of in a .git subfolder.
+it is mainainly used for sharing and collaborating with other devopers.
+we can create a bare repo in which all devolpoers can push their code.
+there is no working dir since no one directly edits files in a bare repo.
+20.how to put local repo on github server?
+21.git clone vs git remote add?
+22.Git stash?
+23.git pull vs git fetch?
+24.apache vs tomcat?
+A:In simple words, Apache is a web-server meant to serve static web-pages. ... 
+Apache Tomcat, on the other hand, is an application server meant to serve Java applications (Servlets, JSPs etc). You can serve web-pages as well through Tomcat, but it is less efficient at that as compared to Apache. IRCTC is one such website.
+
+---------------------------------------------------------
+
+Illumina
+
+1.what are the issues getting in EC2?
+Error connecting to your instance: Connection timed out
+Error: User key not recognized by server
+Error: Host key not found, Permission denied (publickey), or Authentication failed, permission denied
+Error: Unprotected Private Key File
+Error: Server refused our key or No supported authentication methods available
+Error Using MindTerm on Safari Browser
+Cannot Ping Instance
+2.How to increase memory in instance?
+3.Diffrece of set S3 using IAM and S3 bucket policy?
+4.How do you work with VPC?
+5.why do you use ELB , not ALB?
+6.what will you do if instance get high memory?
+7.how to set up cloud watch alarms and metrics using CLI?
+8.where do you write cronjobs? in instance or onpremises server?
+9.what are the thing you perform on jenkins? configure and everty thing?
+10.did you work on github ot only on git?
+11.how git assist in jenkins?
+12.what are the things you work on CLI?
+-----------------------------------------------------------------------------------------
+
+
+------------------------------------------------
+vi /etc/systemd/timesyncd.conf
+timedatectl set-ntp true
+timedatectl status
+----------------------------------------------
+Surify:
+1.roles&resp.
+2.rate of aws?
+3.do u have exp. on ECS?
+4.cloud trail?
+5.scenario:
+i want to give vpc peering from my account to some other account,how would you do that?
+6. what is the route table? what is the main use route table in VPC peering?
+7.i want ot allow only https traffic in this,not http also.the communication should be https,how to do in VPC?
+8.port of hhtps ?
+9.In route table what is the configuaration will you do for port 443?
+10.what are Flowlogs in VPC?
+11.what is the procedure to conncet to EC2 instance?
+12.If i loss the pem file,how to connect to EC2?
+13.How to change the existing pem file in EC2 instance for security perpose?(idea:generate pem files in dashboard)
+14.What is launch configuaration?
+15.Once create a launch config., can you edit that config?
+16.Have you exp. on cloud formation?
+17.Scripts are there of cloud formation,but if we want to customize them(ec2,vpc,bastionhost,private subnets etc.),how good are you in that?
+18.Have you ever create private and public subnets in VPC? i want a private web server,and that should be logged in through a bastion host?
+A:Amazon VPC enables you to launch AWS resources on a virtual private network that you have defined. The bastion host runs on an Amazon EC2 instance that is typically in a public subnet of your Amazon VPC. 
+Linux instances are in a subnet that is not publicly accessible, and they are set up with a security group that allows SSH access from the security group attached to the underlying EC2 instance running the bastion host. 
+Bastion host users connect to the bastion host to connect to the Linux instances, as illustrated in the following diagram.
+19.what is bastion host? and how to do above thing?
+A:A bastion host is a server whose purpose is to provide access to a private network from an external network, such as the Internet. 
+Because of its exposure to potential attack, a bastion host must minimize the chances of penetration.
+For example, you can use a bastion host to mitigate the risk of allowing SSH connections from an external network to the Linux instances launched in a private subnet of your Amazon Virtual Private Cloud (VPC).
+20.what is the Life cycle rules in S3?
+21.In S3 we do have buckets,are they public or private? i want to make it private and even accesible for application, is there any process?
+scenario: we have a bucket content,that should be accessible to application. if you access it through link,it should be access denied. And, from application side we can aceess it. How?
+22.What is CORS? (in S3)
+A:Cross-origin resource sharing (CORS) defines a way for client web applications that are loaded in one domain to interact with resources in a different domain. ... The subtopics describe how you can enable CORS using the Amazon S3 console, or programmatically by using the Amazon S3 REST API and the AWS SDKs.
+
+23.What is Delete marker? (in S3)
+24.What are the diff types of ELBs in AWS?
+25.What is diff b/w classic and N/W load balancer? 
+26.classc and n/w load balancers are getting a DNS names,if go resolv this class LB dns name,i will IP address,even in N/W LB also get a IP.i dont want to never to change Which is constant..? which LB type satisfy the requirement?
+27.If so, why?
+28.what is Application LB?
+29.what is target group?
+30.what is the configuaration we do in ssl.conf?(ans: this file is maintain all security things.)
+31.Have you ever go to SSLLabs and test the certification things?
+32. How about Shell scripting?
+33.what is git? which commands will use mainly?
+34.Diff. of git pull origin and git pull origin <branch name>?
+35. scenario: i have 10 brances in git repository, i dnt want to pull single single branch,i want to pull all branches at the same time using single cmd?
+36.what is docker? 
+37. Have you ever try,using few scripts and do this automation things for docker/git/jenkins?
+38.what is SFTP? and diff b/w FTP and SFTP?
+39.what are the diff. type of cloud watch alarms yuo configured?
+40.what is KMS?
+41.I have a EC2 instacne which it contains volume,i want to encrypt it. how to do it?
+42.what is snapshot?
+43.how abt ansible?
+44.how many linux servers are using now?
+45what is the disastor recover plan?
+46.what are the devops tools you have?
+47.what is SNS and SQS?
+48.what is crontab?
+49.what is lsblk?
+50.what are monitoring tools using?
+51.what is the majorly using instance types?
+52.Volumes will have IPOS,for 1GB how much IOPS will be there?
+scenario: i want you to just try to recognize if 20,000 pepole coming to our server at one pt of time,which instance type we should be select?
+53.Are you good with ubuntu?
+54.what is EFS?
+
+
+ 
+--------------------------------
+
+exponential machine:  8341485025
+
+1.how to create docker image and run curl and get code from git with that image...?
+
+2.how to do cicd pipeline jenkin process?
+
+-----------------------------------------------------------
+EC2 troubleshooting issue:  https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesConnecting.html#TroubleshootingInstancesConnectionTimeout
+
+LinkedIn tech video:  https://www.linkedin.com/feed/update/urn:li:activity:6422322160567717888
+--------------------------------------------------------------------------------------
+ValueLabs:
+1.Roles&Resp.
+2.ITIL certified?
+3.what is LVM?
+4.what is 8e?
+5.how to configure SWAP volume?
+6.what is size of MBR and what are the components of MBR?
+7.what is partx?
+8.port no of DNS and SMTP?
+DNS uses TCP--53 if UDP port 53 is not accepted.
+SMTP--25 or 2525
+9.Explain general CICD pipeline process?
+10.how do you integrate the git with deplyment process?
+11.how do you managing packages/repositories in cicd pipeline?
+12.how do configure master/slave concept in cicd pipeline?
+13.Diff. b/w Ansible and chef?
+14.Write a playbook..for dispaly the what is load on server?And, which module is use for display that?
+15.Can you install any software using playbook,which module is used?
+16.Diff. b/w host variable and group variable?
+17.What is boot swapping in chef?
+18.what is role and how to create it?
+19.what is import and include in ansible?
+20.i want use adhok cmd,to run a playbook input inventory with a tag? hw to do it..give me those options?
+21.Write a playbook...for How to install java8 as a service and how to display whether that service is running or not..?
+22.Diff b/w sysctl and init?
+23.how can i set a service on boot prompt?
+24.what is default porting value in ansible?
+25.what is the dependency of python in ansible? what we need python ideal for background for ansible?
+26.Write a docker file of...install tomcat on port 80 and it should up and running?
+27.How can you build a image in docker?
+28.diff. b/w docker build and docker file?
+29.Why do we need docker, if we have VM already?
+
+------------------------------------------------------------------
+Cybage:
+1.Tell abt carrier and worked technologies and exp.
+2.how to share nfs share data without put in exportsfs file?
+3.how to find nfs share data exported or not?
+4.Can we share username and password with exportsfs ,if so how?
+5.what is rootsquash and noroot squash?
+6.what is hard mount and soft mount?
+Hard mount:--
+If the NFS file system is hard mounted, the NFS daemons try repeatedly to contact the server. The NFS daemon retries will not time out, 
+they affect system performance, and you cannot interrupt them, but control returns to Tivoli Storage Manager when the nfstimeout value is reached.
+Soft mount:--
+If the NFS file system is soft mounted, NFS tries repeatedly to contact the server until either:
+A connection is established
+The NFS retry threshold is met
+The nfstimeout value is reached
+7.what is stickybit and where to use?
+8.what are the versions you worked on?
+9.major diff. b/w linux 6 and 7?
+10.how to find list of open ports on remote machine without login to that?
+A:netstat -lntup or netsat -plan | grep :<portnumber>
+11.write a script for restart apache service on 100 servers?
+12.what is =$$ in script?
+13.How to trace if NFS share folder is not exports to client?
+14.what is tcp wrappers and how to use?
+TCP Wrappers (also known as tcp_wrappers) is a host-based networking ACL system, used to filter network access to Internet Protocol servers on (Unix-like) operating systems such as Linux or BSD.
+we need to configure files
+cat etc/host.allow
+cat etc/host/deny
+15.what is S3?
+16.what are the types of EC2 instances?
+A: general purpose(t2,t3,m4,m5)
+compute optimized
+staorage optimized
+memory
+accelerated computing
+17.How many types of instances you are working on?
+18.how to disable lvm? can we do it w/o umount it?
+19.Git
+-------------------------------------------------------------------------------------------------
+
+TCS:
+1.Tell abt ueself..
+2.Any scripting?
+3.Booting process.?
+4.Have you worked on automation?
+5.Suppose i have an application running on the server,that should run even after reboot? 
+6.Have you work on /etc/inittab file for Q5..!
+7.How to troubleshoot if Load Avg alert came?
+The load average represents the average system load over a period of time. 
+It conventionally appears in the form of three numbers which represent the system load during the last one-, five-, and fifteen-minute periods.
+How to check the Server Load?
+w,uptime,atop,top
+Check the Memory Usage:free -m
+Check the Current disk I/O usage:iostat -x 1 10(This will print the disk usage statistics 10 times, every 1 seconds. Check the %util column.)
+Check the Process List:ps auxf/ps -eaf
+8.how to find running process and kill?
+9.Suppose,you are tyring to SSH and you unable to create home directory and immediatly session getting back. how to troubleshoot?
+10.If FS is full,then how to do?for Q9
+A:sudo du -hsx /* | sort -rh | head -n 40
+sudo du -hsx /home/* | sort -rh | head -n 35
+apt-get autoremove --purge (Unnecessary packages filling up the space)
+
+11.How to do it through console and check space issue?
+12.Suppose application is running on server and that application is consuming all the disk space and application doesnot have old logs as well,then how to get back space?
+13.How to configure NFS?
+14.In NFS client, df -h cmd is hung in client side..!whatcould be the issue?
+15.suppose,i ping google.com from my server,how it works and what are files it checks in my server and in which order?
+16.Any other file to check locally? for Q15
+17.Have you added any disk  using fdisk -l?
+18.If you added a new disk and fidk -l is not showing that new disk.what will you do?
+19.you got 250 unrwacheble alrets for physical servers,what could be the problem?
+20.Its not a newwork issue,then how to check? all 250 servers not up..then what might be the issue?for Q19
+21.now server are up,still few unreachble alerts came. wht could be the issue?
+22.suppose, 50 users having ssh issue for servers,and all servers are up and running.and,servers ssh is gone. what might be the issue?
+23.What is multipathing?
+24.Suppose, i have issue of server performance,what are the things to check?
+
+-----------------------------------------------------------
+goscale:
+
+1.tell abt urself
+2.AWS exam percentage?
+3.Have you worked with VPC?
+4.Suppose,u have a VPC and multiple instances,how to find the data flow in those multiple servers in VPC? A.flowlog
+5.What is the perpose of EFS?
+6.As we already have EBS,why do we use EFS?
+7.What is the drawback of EBS?
+A:Main problem with EBS is,we cannot attach the single a EBS to mutiple instances.so EFS can acts as a NFS.
+8.Have you worked on scripting?
+9.Can you explain private key and public key authentication?how it works?
+
+----------------------------------------------------------------------------------
+Allstate:
+1.tell me about yourself?
+2.tell me about any monitoring tool?
+3.tell me about any database?
+4.master-slave concept?
+5.
+
+
+Innominds:
+1.what do you check if linux machine is slow?
+2.how to chech memory or cpu utilization?
+A:free(phycical) and vmstat(virtual memory) and 'sar'--we can see cpu utilizations and other stats.
+3.how to check the processes and how to kell them?
+4.have you worked on LVM's?why lvm required?
+A:lvm stands for logical voulume manager.it is required to resize filesystems sizeonline.we required lvm in partion in linux.
+size of luvm partion can be extended and reducing using lvextend and lvreduce commands respectively.
+4.1:how to incrrease lvm size?
+------------------------
+A:below 2 steps:
+1.lvextend -l +100M  /dev/<name of lvm>
+2.resize2fs /dev/<name of lvm>
+3.check the size of partions using 'df -h'
+-----------------
+5.what is the difference between ANT and Maven?
+6.what is maven life cycle and how many phases are there?
+7.what are all plugins used in maven project?
+8.what is diff btw git pull and git fetch?
+9.what is shell and bash?
+10.what are the daemons?
+damenons are services which provides several functions which are not available unader any base Os.the main role of damenons which listen for service request and at the same time act on these service
+then it disconnected from service request and wait for another request.the daemon process has no controlling terminal it can't open any terminal(ps -ef).
+11.what is LILO?
+linux loader,it is boot loader which loads the linux os into main memory so that it can begin its operations.lilo can be configured to boot the other os.
+lilo can be cusomized when default lilo configuration is not correct so u can configure in lilo.conf file.
+12.what are components in linux?
+kernal,shell,system utilities
+13.how to check cpu stats and memory stats as linux admin/
+A:free -m(mega bytes)
+vmstat(virtual memory statistics)
+vmstat -a
+vmstat 2 6
+vmstat -t 2 5
+sar(cpu utilizations and other)(sar -u 1 4)(sar -r 1 4)
+
+--what does sar provides and at which locations logs are stored?
+A:SAR collect,report or save system active informations.
+the default version of sar command(cpu utilixations report)
+might be one of the first factilities the user to runs to begin system activity investigation.bcz it monitors major system resources .
+logs--/var/log/sa/sadd(dd-current day)
+
+14.how to reduce or shrink the size of LVM partions?
+1.df -hT
+=unmount the filesystem using command umount /lvm
+=check wthere u have any problem with filesystem(e2fsck -f /dev/zoom/linux )
+=use resize2fs command(resize2fs /dev/zoom/linux 3G)
+=lvreduce -L 3GB /dev/zoom/linux
+=mount /dev/zoom/linux /lvm(mount ur filesystem on /lvm)
+=df -hT
+--how to create partion from the RAW disk?
+using 'fdisk' utility we can create partion from raw disk.
+fdisk /dev/sd*(scsi) or fdisk /dev/hd*(IDE)
+type n to create new parion, aftr creating partion type w command to write changes to the partions.
+------------------------------------------
+ 
+15.what is CL vs GUI?
+16.how can u find ou how much memory used in linux?
+free -g
+cat /proc/meminfo(complete information)
+17.what is swap size?
+swap space is certain amount of space used by linux to temporarily hold active programs.this happens when RAM does not have enough memory to hold all pgms
+that are being excuted .swap space is defined in File system.the preffered size of swap space is twice the amount of physical memory available on system.
+if this not possible then the minimum size should be the same as the memory installed..
+18.how do we access the partitions under linux?
+if its IDE hard drive.
+/dev/hda
+/dev/sda and /dev/sdb(sas)
+19.in linux,how are names assigned to the differnt serial ports?(communication ports)
+ls -l /dev/ttys*
+20.printer ports(parallel ports)
+ls -l /dev/lp*
+21.what are the kind of permissions available in linx?
+22.what are soft links and the quality of softlinks?
+23.what are hardlinks?
+hard links directly point to the physical file on disk and not to the path.
+so if you rename the file or move the original file,the link will not be break.
+since the links to points to the file itselt and not the path where the file is located.
+24.write a cmd that will look for files with txt  extention and has the occurence of string "devops" in it.
+find / - name *.txt | xargs grep -i devops
+25.how to find the status of process?
+ps aux
+S(interrptuble sleeping state)
+D(uninterrptuble sleeping state)
+R(running)
+S>(hight priority)
+SN(low priority)
+SNL(logs)
+T(stopped state)
+G(zombie)
+26.what is the cmd to calculate the size of the folder>
+du(directory usage)
+du -sh /boot
+27.how can u run a linux pgm in bg simulateneously when u start ur linux server?
+by using  the 'nohub' cmd,the process will run in the bg.
+the process will take nonhub the signal will be terminated when u got out of the pg which was used invoke it.
+28.which daemons tracks events on ur system?
+the syslogd daemons tracks the system information and save it into a specified log files.
+29.what is partial backup>
+partial back up is not complete back up,it tkaes only certain files or folders.
+we have many backup pgms:
+tar,cpio,dumprestore.
+30.what is inode?
+31.which cmd is used to set a processor-intensive job to execute in less CPU time?
+priority of the job can be changed by using cmd 'nice'
+priority range from -20(highest) to 19(lowest).
+=ps -fl cat
+=nice -10 cat > file1
+=nice --10 cat > file1
+
+=renice -n -19 -p 
+32.what are shadow passwords?how they are enabled?
+etc/passwd
+etc/shadow
+
+33.what is UMSAK?
+A:UMASK--user file creation mask
+which determines the settings of a mask that controls which file permission are set for files and dir when they created.
+34.how to set the UMASK permanently for a user?
+A:it has to be put in appropriate profile file which depends on the default shell of the user.
+35.where the kernel module are located?
+/lib/modules/kernel-version directory stores all kernel modules or compiled drivers in linux os.
+we can use 'lsmod' to see all the installed kernel.
+36.how to share direcoty using NFS?
+firts edit the configuration file '/etc/exportfs' add entry like '/<dir name> <ip or Network> and then restart NFS service.
+37.how to check and mount NFS share?
+by using 'showmount' we can see what direcrories are shared via NFS.
+ex: showmount -e <ip>
+38.what are default ports for SMTP,SSH,DNS,FTP,DHCP,SQUID?
+service   ports
+ssh        22
+SMTP      25
+DNS        53
+FTP        20(data transfer),21(connection established)
+SQUID      3128
+DHCP       67
+HTTPS	  443(TCP)
+RDP       3389        
+39.how to check default route and routetable?
+Netstat -nr and route -n
+40.how to check which are ports are listening in my linux server?
+Netstat listen  and lsof -i
+41.what can you add at the beggiing of the password file to prevent a user from logging?
+if u add an astrick at the beggining field in the /etc/passwd file.
+42.what is difference between AT and CRON?
+CRON cab be set only for a particular time and AT is used to schedule and excute.
+43.what is the name and path of main syatem log?
+A: the main system log is /var/log/messages
+44.what cmd is used to check number of files and disk space used and each user defined quotas?
+A:repquota is used to get the status of quotas along with disk space files?
+45.what cmd is used to check your filesystem on ur disk?
+A:fsck
+
+
+
+
+
+
+GOA:
+
+1. what is aws?
+2. what is EC2 ?
+3. what is Elastic bean stalk?
+4. what is docker?
+5. what is systemctl, journalctl, systemd?
+6. what is core compete and core pipeline?
+7. what is amazon aurora?
+8. diff b/w Nginix and apache?
+9. how to connect nginix with php?
+10. how will you send 400 http responses from nginix?
+11. what is VPC? and what is flow logs in VPC?
+--------------------------------------------------------------
+SharkDreams:
+
+About company:-
+
+SharkDreams, The American healthcare system which develops software and hardware to monitor patient health through cloud-based data analytics and artificial intelligence capabilities. The company offers its products and services to patients, doctors, pharmacist, and caregivers. The company was incorporated in 2016 and is based in Raleigh, North Carolina.
+
+Southerland:
+1.how to check memrory?
+2.how to check disc space?
+3.file permissions?
+4.ACL?
+A:access contrl list which allows you to give extra permissions to the users/group offiles/dir.
+we need to enable in defining in /etc/fstab
+sudo mount -o remount
+mount
+----
+setfacl user:username:permissions filename / 
+getfacl filename
+5.Project Architecture?
+6.what is patch file?how to do patch file?
+7.how to get ip addr? and how to change ip addr?
+A:ifconfig
+--sudo ip addr del 192.168.56.2 dev eth1(dropping ip addr)
+--sudo ip addr add 192.168.56.3/24 dev eth1(add new ip addr)
+8.what is ssh?--communication protocal which is used to access remotely located machines_>ssh username@ip
+9.what is SFTP?secure file transfer protocal is used for transferring only files.
+-->sftp ip/hostname
+-->sftp lcd(to change directory in hostmachine)
+-->sftp cd(to change directory in remote machine)
+-->sftp get filename pathname
+-->sftp put  filename pathname
+
+10.SCP?--SFTP? used for transferring only files not folders and directories.
+so SCP whic is used transfarring/uploading folders/dir.
+-->SCP -r remote:pathname pathname
+-->SCP -r pathname remote:pathname
+11.how to run jobs from linux and schedling? or How to schedule job using cron tab in Linux?
+A;crontab -l(checking crons)
+crontab -e(creating)
+* * * * * cmd
+22 10 05 jun mon /script/backup.sh
+
+13 16 31 * *  touch /root/Desktop/file.txt
+crontab -i -r(deleting)
+crontab -u username -e(creating for particular user)
+
+13 16 31 * *  mkdir  /root/Desktop/raju
+*/15 * * * * /script/backup.sh(every 15 mnts this job will excute)
+0 */2 * * * /script/backup.sh(every 2 hrs this job will excute)
+@monthly mkdir  /root/Desktop/raju ;touch /root/Desktop/file.txt(using special string)
+Difference btw yum and rpm?
+
+In very short terms, YUM will install a full application, along with ALL its dependencies that are needed for it to run (libraries, other applications, etc) whereas RPM installs a SINGLE package file that you downloaded. RPM will error out when installing a package that has other dependencies if they are not present, whereas YUM will go get them and present them for your confirmation to install.
+3.skip test cases in maven?
+mvn install -DskipTests
+mvn install -Dmaven.test.skip=true
+
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+
+mvn install -DskipTests=false-----by default skipping.
+
+4.how to set the proxy in maven?
+You can configure a proxy to use for some or all of your HTTP requests with Maven. The username and password are only required if your proxy requires basic authentication (note that later releases may support storing your passwords in a secured keystore - in the mean time, please ensure your settings.xml file (usually ${user.home}/.m2/settings.xml) is secured with permissions appropriate for your operating system).
+
+<settings>
+  .
+  .
+  <proxies>
+   <proxy>
+      <id>example-proxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>proxy.example.com</host>
+      <port>8080</port>
+      <username>proxyuser</username>
+      <password>somepassword</password>
+      <nonProxyHosts>www.google.com|*.example.com</nonProxyHosts>
+    </proxy>
+  </proxies>
+  .
+  .
+</settings>
+
+
+
+
+
+
+-----
+1.diff shell and command in ansible?
+It is almost exactly like the command module but runs the command through a shell (/bin/sh) on the remote node.
+For Windows targets, use the win_shell module instead.
+ex:
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: somescript.sh >> somelog.txt
+
+- name: Change the working directory to somedir/ before executing the command.
+  shell: somescript.sh >> somelog.txt
+  args:
+    chdir: somedir/
+
+
+The given command will be executed on all selected nodes. It will not be processed through the shell, so variables like $HOME and operations like "<", ">", "|", ";" and "&" will not work (use the shell module if you need these features).
+For Windows targets, use the win_command module instead.
+ex:
+- name: return motd to registered var
+  command: cat /etc/motd
+  register: mymotd
+
+- name: Run the command if the specified file does not exist.
+  command: /usr/bin/make_database.sh arg1 arg2
+  args:
+    creates: /path/to/database
+
+# You can also use the 'args' form to provide the options.
+- name: This command will change the working directory to somedir/ and will only run when /path/to/database doesn't exist.
+  command: /usr/bin/make_database.sh arg1 arg2
+  args:
+    chdir: somedir/
+    creates: /path/to/database
+
+
+
+SSL proxy:
+ssl/tl---
+yum install httpd(package)
+yum install mod_ssl
+yum install openssl(package is used for generating a selft saint cerificate)
+openssl genrsa -out ca.key 2048(private key with 048 encryption)
+openssl req -new -key ca.key -out ca.csr 
+openssl x5049 -req -days 365 -in ca.csr -signkey ca.key -out ca.crt
+we need copy these certficates to necessary dirs
+cp ca.key /etc/pk1/tls/certs
+cp ca.csr /etc/pk1/tls/certs
+cp ca.crt /etc/pk1/tls/certs
+
+vim /etc/hhtpd/conf.d/ssl.conf(we need to overrite the certificates files)
+vim /etc/hhtpd/conf.d/httpd.conf(we need to conf the apache seervere)
+<virtualHost *:443>
+ SSLEngine
+ SSLCerficatefile path
+   SSLCerficatekeyfile path
+   SSLSevername
+   Document root
+</VH>
+then we need to add in the firewall
+
+firewall-cmd --permanet --add-service=https
+firewall-cmd --permanet --add-port=44
+firewall-cmd --reload
+after that we need restart the service
+systemctl restart httpd.service
+systemctl enable  httpd.service
+
+-jenkinspplugins:---
+
+git
+github
+ant
+gradle
+pipline
+ldap 
+pam authentication(project based)
+mailer
+email extention
+buildpiepline
+maven invoker
+udeploy
+greenball
+rolebased authorization strategy
+matrix authorization strategy
+ssh slaves
+timestamp
+workspace cleaner
+subversion
+msbuild
+build timeout
+jira issue updater
+maven integration
+
+
+1.git stash:
+2.git stage:
+3.git clone vs git remote:
+4.git bare repository?
+git init --bare
+the bare repository does not contain any working or checked out copy of source files.a bare repo stores git revision history in the root folder of repo instead of in a .get subfolder.
+it is mainly used for sharing and collaborating with other develpors.we can create bare repo in which all developers can push their code.
+5.git vs svn?
+
+
+
+
+Wipro:
+1.have you worked on Networking in Docker?
+2.what is docker-compose?
+3.how to get the ip of container?
+A:go to container and give like "ifconfig" or docker inspect cid or Hostname -I
+Add this shell script in your ~/.bashrc or relevant file:
+
+docker-ip() {
+  docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+}
+Then, to get an IP address of a container, simply do this:
+
+docker-ip YOUR_CONTAINER_ID
+
+4.how to toubleshoot the container if you get any issue with container?
+5.
+
+
+TechMahindra:
+1.what is diff btw CI/CD/CD?
+2.what is git rebase?
+3.which cmd u can use after git commit?
+4.what are monitoring tools are you working?
+5.how to create alarm or alert in cloudwatch?
+6.how to run docker-compose file?
+7.which language are using for writing docker-compose?
+8.is JSON format work in docker-compose?
+9.what is docker image?
+10.what is docker container?
+11.how to run docker container?
+
+
+Mindtree:
+
+1.what is Devops?
+2.what is diff btw CD/CD?
+3.what is docker image?
+4.what is docker container?
+5.how to check logs for container?
+6.where the docker images are stored on host machine?
+A:/var/lib/docker/
+The contents of the /var/lib/docker directory vary depending on the driver Docker is using for storage.
+
+By default this will be aufs but can fall back to overlay, overlay2, btrfs, devicemapper or zfs depending on your kernel support. In most places this will be aufs but the RedHats went with devicemapper.
+
+You can manually set the storage driver with the -s or --storage-driver= option to the Docker daemon.
+
+/var/lib/docker/{driver-name} will contain the driver specific storage for contents of the images.
+/var/lib/docker/graph/<id> now only contains metadata about the image, in the json and layersize files.
+In the case of aufs:
+
+/var/lib/docker/aufs/diff/<id> has the file contents of the images.
+/var/lib/docker/repositories-aufs is a JSON file containing local image information. This can be viewed with the command docker images.
+In the case of devicemapper:
+
+/var/lib/docker/devicemapper/devicemapper/data stores the images
+/var/lib/docker/devicemapper/devicemapper/metadata the metadata
+
+7.what is microservices?
+8.what is docker-swarm?
+9.in autoscaling there are 2 servers are running and i need to update the changes in one server then how can we do it?
+10.tell me about NATgateway?
+11.you have a content management system running on an amazone ec2 instance that is approaching 100% CPU utilization.which option will reduce load on that insatnce?
+A:Creating alone autoscaling group will not solve the problem,until uou attach a loadbalancer to it.once you attach LB to its your autoscaling group,it will efficiently distribute the load among all the instances
+
+SGRL:
+1.CI/CD?
+2.how to handle Exception handling in Ansible?
+3.how to create directory in ansible playbook?
+4.what are all playbooks you are develpoed in ur project and explain them?
+5.git merging and git rebasing?
+6.ant vs maven?
+7.release strategey?
+8.what is use of Artifactory storage Nexus?
+9.how to slove merge conficts?
+10.how to deploy into production or any other envirmont?
+11.what are all issues u have resloved during deployment?
+12.what approaches you are following when you have new deployment with Zero downtime deployment?
+A:Rolling updates
+Blue Green Deployment
+
+wipro:
+1.differences between git merge and rebase?
+2.pull vs fetch?
+3.webhooks?
+4.ant vs maven?
+5.CI/CD?
+6.diff between Continous delivey and Continous deployment?
+7.how you write Jenkins file and what you mentioned in and explain each and verything?
+8.what is your deployment process?
+9.how do we choose AZ?
+A:regions:mumbai/N.Verginia
+Instance type:
+eg: Amazone ec2-m4.xlarge
+    16(vcpu),64GB RAM
+pricing(1 yr)---691$/monthly--Mumbai(0.9$ hourly)
+             ---480$/monthly--N.V(0.6$ hourly)
+latency--from USA to India --low
+--------from India to USA---high
+mostly we have to focus on pricing and perforamnce.better to choose N.V
+
+10.how many types of instances are there and explain each one in detail in aws?
+--spot instance
+---on demand instance
+--reserved instance
+--dedicated instance
+11.what is defference  spot instance from ondemand and reserved instances?
+12.i have some private serevrs on premises and also i have distributed some of my workload on the public cloud so what is architure called and explain about it?
+13.what is Elastic IP and compare to Normal IP's?
+14.Is EIP address  enough for every instance that i have running?
+15.what are the best practises for Security in AWS Ec2?
+A:several practises are there to secure AWS Ec2.
+1.use IAM to control access to ur AWS resouces.
+2.restrict access by allowing trusted hosts or network to access ports on ur instance.
+3.review the Rules in your security Groups regularly and ensure that you apply the principles of least.
+4.privilege --only open up permissions that u require.
+5.Disabled passwd based login when you lauch instance from your AMI.password can be found or cracked and are a security risk.
+
+16.You need to configure AWS S3 bucket to serve static assets for your public facing web application.which method will you ensure that all the objects are uploaded that are set to public read?
+A: all object are public read policy for S3 Bucket.
+17.A customer wants to levarage AWS S#=3 and Glacier as part of their back-up and archive infrastructure.the customer uses third party tools to access them so which approcah
+will use?
+A:A Cusomer IAM user policy limited to AWS S3 API in "company-backup".
+18.when you need to move data over long distance  using internet ,for the instance across contires or contnets of ur aws s3 bucket which method will use?
+A:Amazon Glacier--archive serving
+  Amazone CloudFront--content delivery network(CDN) ,it is data transfer tool therefore will not reduce the load on ec2 instance.
+  amazone transfer acceleration--basicalyy acceleration your tansfer using CDN (right answer)
+  Amazone snowball--when huge amount date to be tansffered  over long distance not across countries but only in USA.
+19.Is it possible to change the private IP addresses of an ec2 while it is running/stopped?
+A:Primary private IP address is attached with instance throughout its lifetime and cannot be changed howerever seconday private can be changed and unsasigned or assigned or moved between Interfaces or instances at any point.
+20.In CloudFront what happens when content is NOT present at edge location and a request made to it?
+A:CF delivers the content directly from origin server and stores it in the cache of edge location.
+21.If AWS Direct connect fails,will i lose my connectivity?
+22.if i launch a standby RDS instance,will be in the same AZ as a primary?
+A: No,standby is to avoid an infra failure therefore it stores in Different AZ.
+
+
+Trichon:
+1.what is difference between Mysql and DynomoDB/
+2.what is Amazon Aurora?why comapnies are choosing?
+6.what are plugins used in jenkins in your project and explain them?
+4.what is CI/CD process are you following in your current project?
+5.what is lambada?
+6.what happens to my backups and DB snapshots,if i delete my DB backup?
+A:when you delete a DB instance,you have an option of creating a final DB snapshot,if you do that you can restore ur database from that snapshot.RDS retains the user-created DB snapshots along with other manually created DB 
+snapshots after the instance is deleted,also automated backups are deleted and only manually created DB snapshots are retained.
+7.suppose you have an application where you have to render images and also do some general computing.then which service is best?how?
+A:application load balancer because it supports path based routing,which can take decision based on the URL if your task needs image rendering it will route it to different instance,and for general computing it will route it to a different instance.
+8.what is difference btw scalability and elasticity?
+A:scalability is the ability of a system to increase to hardware resources to handle in demand.it can be done by increaing the hardware specifications.
+Elasticity is is the ability of a system to increase to workload by adding additional hardware resources when the demand increase but also rolling back the scaled resouces when the resources are nolonger needed.this is helpful in cloud envirnment when a pay per user model is followed.
+9.how will u change the instance type of instance which are running in your application tier and are using autoscaling.where will u change it from?
+A:Autoscaling lauch configuration.
+Autoscaling tags configuration is used to attach metadata to your instances.
+10.what is conneection draining do?
+A:conneection draining is service under ELB which constantly monitors the health of the instances.if any instance fails a health checks or any instance has to be patched with a software update,it pulls all the traffic from that instance and re routes them to other instances.
+11.when an instance is unhealthy,it is terminated and replaced with a new one,which service is best?
+A:Fault tolerance.
+Eg:when an ELB detects that an instance is unhealthy,it starts routing the incoming traffic to other healthy instances which are in the region.
+if all the instances become unhealthy in the region and if you have some other AZ/region,your traffic is detected to them ,once your instance become healthy again,they are routed back to the original instances.
+
+12.A user has setop an ASG,due to some issue it got failed to lauch a single instance from more than 24 hours what ASG will do in the condition?
+A:ASG will suspend the scalling process.
+13.you have an ec2 SG with severl runing ec2 instances,you changed the SG rules to allow inbound tarffic on new ports and protocal,and then launched new instances in the SG.the rules apply for what?
+A:any rule specified in the SG applies immedaitely to all the instances.
+14.Disaster Recovery?
+DR invloves a set of policies and procedures to enable the recovery or continuation of vital technology infrastructre and systems following a natural or human induced distaster.
+DR focuses on the IT or Technology systems supporting critical busisess fuctions.
+
+15.what you did in Cloudwatch?
+16.what is difference between NAT gatway and SG?
+17.what is dif btw NAT gateway and nat Instance?
+18.
+
+
+
+
+ValueLabs:
+1.dif CD and CD?
+2.tell me about your prjct life cycle and how do you configure?
+3.what are plugins used in your prjct in jenkins?
+4.how do you deploy your packages on to particular env?
+5.how do you know jenkins which is going to deploy on QA env?
+6.what ELB and why are you using?
+7.Jenkins authentication and authorization?
+8.what is ASG?
+9.types of scaling policies and explain them?
+
+
+statestreet:
+1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
